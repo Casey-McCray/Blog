@@ -34,6 +34,11 @@ class UserPostListView(ListView):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Post.objects.filter(author=user).order_by('-date_posted')
 
+    def get_user(self):
+        tags =  User.objects.filter(username=self.kwargs.get('username'))
+        return tags
+
+
 class PostDetailView(DetailView):
     model = Post
 
@@ -75,3 +80,14 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 def about(request):
     return render(request, 'blog/about.html', {'title': 'About'})
+
+
+# CUSTOM
+# class Profile(ListView):
+#     model = {'User': User}
+#     template_name = 'blog/user_post.html'
+#     context_object_name = 'user'
+
+#     def get_queryset(self):
+#         user = get_object_or_404(User, username=self.kwargs.get('username'))
+#         return User.objects.filter(author=user)

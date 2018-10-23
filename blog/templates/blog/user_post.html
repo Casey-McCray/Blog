@@ -1,5 +1,16 @@
 {% extends "blog/base.html" %}
 {% block content %}
+  {% for tag in view.get_user %}
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ tag.profile.image.url }}">
+        <div class="media-body">
+          <h2 class="account-heading">{{ tag.username }}</h2>
+          <p class="text-secondary">{{ tag.email }}</p>
+        </div>
+      </div>
+    </div>    
+  {% endfor %}
   <h1 class="mb-3">Posts By {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
   {% for post in posts %}
     <article class="media content-section">
