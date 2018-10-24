@@ -24,19 +24,19 @@ class PostListView(ListView):
     paginate_by = 5
 
 
-class UserPostListView(ListView):
-    model = Post
-    template_name = 'blog/user_post.html'    # app/model_viewtype.html
-    context_object_name = 'posts'
-    paginate_by = 5
+# class UserPostListView(ListView):
+#     model = Post
+#     template_name = 'blog/user_post.html'    # app/model_viewtype.html
+#     context_object_name = 'posts'
+#     paginate_by = 5
 
-    def get_queryset(self):
-        user = get_object_or_404(User, username=self.kwargs.get('username'))
-        return Post.objects.filter(author=user).order_by('-date_posted')
+#     def get_queryset(self):
+#         user = get_object_or_404(User, username=self.kwargs.get('username'))
+#         return Post.objects.filter(author=user).order_by('-date_posted')
 
-    def get_user(self):
-        tags =  User.objects.filter(username=self.kwargs.get('username'))
-        return tags
+#     def get_user(self):
+#         tags =  User.objects.filter(username=self.kwargs.get('username'))
+#         return tags
 
 
 class PostDetailView(DetailView):
@@ -82,12 +82,17 @@ def about(request):
     return render(request, 'blog/about.html', {'title': 'About'})
 
 
-# CUSTOM
-# class Profile(ListView):
-#     model = {'User': User}
-#     template_name = 'blog/user_post.html'
-#     context_object_name = 'user'
+class UserPostListView(ListView):
+    model = Post
+    template_name = 'blog/user_post.html'    # app/model_viewtype.html
+    context_object_name = 'posts'
+    paginate_by = 5
 
-#     def get_queryset(self):
-#         user = get_object_or_404(User, username=self.kwargs.get('username'))
-#         return User.objects.filter(author=user)
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Post.objects.filter(author=user).order_by('-date_posted')
+
+    def get_context_data(self, **kwargs):
+        context = super(UserPostListView, self).get_context_data(**kwargs)
+        context['tags'] = User.objects.filter(username=self.kwargs.get('username'))[0]
+        return context
