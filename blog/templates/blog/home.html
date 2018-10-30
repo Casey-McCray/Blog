@@ -10,7 +10,7 @@
         </div>
         <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
         <p class="article-content">{{ post.content }}</p>
-        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-like' post.id%}">Like! {{post.likes}}</a>
+        <a id="post-likes-meter" class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-like' post.id%}">Like! {{post.likes}}</a>
       </div>
     </article>
   {% endfor %}
@@ -32,3 +32,11 @@
     {% endif %}
   {% endif %}
 {% endblock content %}
+
+{% block javascript %}
+  <script>
+    $("#post-likes-meter").change(function () {
+      console.log( $(this).val() );
+    });
+  </script>
+{% endblock javascript %}
