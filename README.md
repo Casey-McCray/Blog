@@ -1,10 +1,17 @@
 :large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond:
 
+
 # Djanog Blog
 
-This is a Blog Application where a user can create an account and create/edit/delete their blog posts.
+This is a Blog Application where a user can:
+ * Create an Account
+ * Create Blog Posts
+ * Edit their Blog Posts
+ * Delete Existing Blog Posts
+ * Like/Upvote Other User's Posts
 
 ### Packages Used
+
   * Python 3.7.0
   * Cripsy Forms
   * Rest Framework
