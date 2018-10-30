@@ -83,14 +83,6 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return True
         return False
 
-# def like(request, pk):
-# #    pk = request.GET['pk']
-#     obj = Post.objects.get(pk=pk)
-#     obj.likes = obj.likes + 1
-#     obj.save()
-#     return redirect('blog-home')
-
-
 def about(request):
     return render(request, 'blog/about.html', {'title': 'About'})
 
@@ -100,7 +92,6 @@ class PostList(APIView):
     def get(self, request, pk):
         post = Post.objects.get(pk=pk)
         serializer = PostSerializer(post, many=False)
-        post.likes = serializer.data['likes'] + 1
+        post.likes = post.likes + 1
         post.save()
-        return Response(post.likes)
-        #serializer.data['likes']
+        return Response(serializer.data)

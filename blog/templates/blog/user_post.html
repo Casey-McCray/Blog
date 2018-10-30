@@ -20,7 +20,7 @@
         </div>
         <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
         <p class="article-content">{{ post.content }}</p>
-        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-like' post.id%}">Like! {{post.likes}}</a>
+        <a class="btn btn-secondary btn-sm mt-1 mb-1" onclick="like({{post.id}})">Like! <span id="likes{{post.id}}">{{post.likes}}</span></a>
       </div>
     </article>
   {% endfor %}

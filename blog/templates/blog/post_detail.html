@@ -15,7 +15,7 @@
         </div>
         <h2 class="article-title">{{ object.title }}</h2>
         <p class="article-content">{{ object.content }}</p>
-        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-like' object.id%}">Like! {{object.likes}}</a>
+        <a class="btn btn-secondary btn-sm mt-1 mb-1" onclick="like({{object.id}})">Like! <span id="likes{{object.id}}">{{object.likes}}</span></a>
       </div>
     </article>
 {% endblock content %}
