@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['localhost']
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'users.apps.UsersConfig',
     'blog.apps.BlogConfig',
     'crispy_forms',

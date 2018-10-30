@@ -1,5 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import PostSerializer
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (ListView,
@@ -8,6 +12,7 @@ from django.views.generic import (ListView,
     UpdateView,
     DeleteView
 )
+import json
 
 def home(request):
     context = {
@@ -78,13 +83,15 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return True
         return False
 
-def like(request, pk):
-#    pk = request.GET['pk']
-    obj = Post.objects.get(pk=pk)
-    obj.likes = obj.likes + 1
-    obj.save()
-    return redirect('blog-home')
-
-
 def about(request):
     return render(request, 'blog/about.html', {'title': 'About'})
+
+
+class PostList(APIView):
+
+    def get(self, request, pk):
+        post = Post.objects.get(pk=pk)
+        serializer = PostSerializer(post, many=False)
+        post.likes = post.likes + 1
+        post.save()
+        return Response(serializer.data)
