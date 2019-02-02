@@ -1,7 +1,7 @@
 :large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond:
 
 
-# Djanog Blog
+# Django Blog
 
 This is a Blog Application where a user can:
  * Create an Account
