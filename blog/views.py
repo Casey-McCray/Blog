@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post
+from .models import Post, Like
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -12,6 +12,7 @@ from django.views.generic import (ListView,
     UpdateView,
     DeleteView
 )
+from django.db import IntegrityError
 import json
 
 def home(request):
@@ -89,9 +90,20 @@ def about(request):
 
 class PostList(APIView):
 
-    def get(self, request, pk):
-        post = Post.objects.get(pk=pk)
+    def get(self, request, pk): 
+        post = get_object_or_404(Post, pk=pk)
+        print(post)
+        try:
+            like = Like.objects.get(post=pk, user=request.user.id)
+        except Like.DoesNotExist:
+            like = None
+        if like is None:
+            Like.objects.create(post=post, user=request.user)
+            print(post.likes)
+            post.likes += 1
+            print(post.likes)
+            post.save()
         serializer = PostSerializer(post, many=False)
-        post.likes = post.likes + 1
-        post.save()
+        print(serializer.data)
         return Response(serializer.data)
+

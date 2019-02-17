@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'blog/main.css' %}">
     {% if title %}
-      <title>Django Blog - {{ title }}</title>
+      <title>Blog - {{ title }}</title>
     {% else %}
-      <title>Django</title>
+      <title></title>
     {% endif %}
   </head>
 
@@ -19,7 +19,7 @@
     <header class="site-header">
     <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
       <div class="container">
-        <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">Django Blog</a>
+        <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">Blog</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
@@ -76,7 +76,7 @@
     <script type="text/javascript"> 
       function like(id) {
         var request = new XMLHttpRequest();
-        var url = "http://localhost:8000/blog/post/" + id + "/like";
+        var url = "http://localhost:8000/post/" + id + "/like";
         request.open('GET', url);
         request.onload = function() {
           var data = JSON.parse(request.responseText);
