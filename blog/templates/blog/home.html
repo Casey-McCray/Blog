@@ -10,11 +10,19 @@
         </div>
         <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
         <p class="article-content">{{ post.content }}</p>
+        
         {% if user.is_authenticated %}
         <a class="btn btn-secondary btn-sm mt-1 mb-1" onclick="like({{post.id}})">Like! <span id="likes{{post.id}}">{{post.likes}}</span></a>
         {% else %}
         <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'login' %}">Like! <span id="likes{{post.id}}">{{post.likes}}</span></a>
         {% endif %}
+          <ul class="list-group">
+            {% for p in post.comment.all %}
+              <li class="list-group-item list-group-item-light"><a class="mr-2" href="{% url 'user-post' p.user.username %}">{{ p.user.username }}</a>
+              <p class="comment">{{ p }}</p>
+              </li>
+            {% endfor %}
+          </ul>        
       </div>
     </article>
   {% endfor %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post
+from .models import Post, Like, Comment
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -12,7 +12,9 @@ from django.views.generic import (ListView,
     UpdateView,
     DeleteView
 )
+from django.db import IntegrityError
 import json
+
 
 def home(request):
     context = {
@@ -37,11 +39,14 @@ class UserPostListView(ListView):
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
-        return Post.objects.filter(author=user).order_by('-date_posted')
+        post = Post.objects.filter(author=user).order_by('-date_posted')
+        return post
 
     def get_context_data(self, **kwargs):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        posts = list(Post.objects.filter(author=user))
         context = super(UserPostListView, self).get_context_data(**kwargs)
-        context['tags'] = User.objects.filter(username=self.kwargs.get('username'))[0]
+        context['tags'] = User.objects.filter(username=self.kwargs.get('username'))[0]      
         return context
 
 
@@ -51,7 +56,7 @@ class PostDetailView(DetailView):
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
-    success_url = '/blog/'
+    success_url = '/'
 
     def test_func(self):
         post = self.get_object()
@@ -66,6 +71,22 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        return super().form_valid(form)
+        
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    # template_name = 'blog/comment_form.html'
+    success_url = '/'
+    fields = ['comment']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        self.object = form.save()
+        print(self.object.id)
+        post = Post.objects.get(id=self.kwargs['p_id'])
+        comment = Comment.objects.get(id=self.object.id)
+        post.comment.add(comment)
         return super().form_valid(form)
 
 
@@ -89,9 +110,20 @@ def about(request):
 
 class PostList(APIView):
 
-    def get(self, request, pk):
-        post = Post.objects.get(pk=pk)
+    def get(self, request, pk): 
+        post = get_object_or_404(Post, pk=pk)
+        print(post)
+        try:
+            like = Like.objects.get(post=pk, user=request.user.id)
+        except Like.DoesNotExist:
+            like = None
+        if like is None:
+            Like.objects.create(post=post, user=request.user)
+            print(post.likes)
+            post.likes += 1
+            print(post.likes)
+            post.save()
         serializer = PostSerializer(post, many=False)
-        post.likes = post.likes + 1
-        post.save()
+        print(serializer.data)
         return Response(serializer.data)
+
