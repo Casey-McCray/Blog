@@ -1,4 +1,5 @@
 {% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
     <article class="media content-section">
      <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" alt="">
@@ -20,6 +21,27 @@
         {% else %}
         <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'login' %}">Like! <span id="likes{{object.id}}">{{object.likes}}</span></a>
         {% endif %}</a>
+        <ul class="list-group">
+          {% for p in object.comment.all %}
+            <li class="list-group-item list-group-item-light">
+              <a class="mr-2" href="{% url 'user-post' p.user.username %}">{{ p.user.username }}</a>
+              <p class="comment">{{ p }}</p>
+            </li>
+          {% endfor %}
+        </ul>
+        <div class="content-section">
+         
+    <form action="comment/" method="POST">
+      {% csrf_token %}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4">New Comment</legend>
+        <input type="text" name="comment" placeholder="Add a comment!">
+      </fieldset>
+      <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">Post!</button>
+      </div>
+    </form>
+  </div>        
       </div>
     </article>
 {% endblock content %}
