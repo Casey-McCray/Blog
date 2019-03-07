@@ -1,14 +1,14 @@
 :large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond::large_blue_diamond:
 
-
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 # Django Blog
 
 This is a Blog Application where a user can:
  * Create an Account
  * Create Blog Posts
- * Edit Their Blog Posts
- * Delete Existing Blog Posts
- * Like/Upvote Other User's Posts
+ * Edit/Delete Their Posts
+ * Upvote Other User's Posts
+ * Comment on Posts
 
 ### Packages Used
 
